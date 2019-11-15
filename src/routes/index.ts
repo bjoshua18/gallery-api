@@ -1,11 +1,14 @@
 import {Router} from 'express'
 const router = Router()
 
-import { createPhoto, getPhotos } from '../controllers/photo.controller'
+import { createPhoto, getPhotos, getPhoto } from '../controllers/photo.controller'
 import multer from '../libs/multer'
 
 router.route('/photos')
+	.get(getPhotos) // Obtenemos todas las imagenes
 	.post(multer.single('image'), createPhoto) // Comprobamos que recibimos una imagen con multer y luego lo procesamos con createPhoto
-	.get(getPhotos)
+
+	router.route('/photos/:id')
+		.get(getPhoto)
 
 export default router
