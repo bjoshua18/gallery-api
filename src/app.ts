@@ -15,7 +15,7 @@ app.use(express.json()) // Usamos el json() para manejar el envio y recepcion de
 
 // Routes
 app.use('/api', indexRoutes) // Toda la ruta '/api', lo maneja indexRoutes
-// Accedemos a los archivos de 'uploads' desde '/uploads'
+// Accedemos a los archivos de 'uploads' desde '/uploads' con el navegador
 app.use('/uploads', express.static(path.resolve('uploads'))) // path.resolve() devuelve la ruta absoluta
 
 export default app
