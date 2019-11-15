@@ -30,11 +30,25 @@ export async function createPhoto(req: Request, res: Response): Promise<Response
 	})
 }
 
+export async function updatePhoto(req: Request, res: Response): Promise<Response> {
+	const id = req.params.id
+	const { title, description } = req.body
+	const updatedPhoto = await Photo.findByIdAndUpdate(
+		id, 
+		{ title, description }, 
+		{new: true} // Para que devuelva el objeto con los datos actualizados
+	)
+	return res.json({
+		message: 'Updated successfully',
+		updatedPhoto
+	})
+}
+
 export async function deletePhoto(req: Request, res: Response): Promise<Response> {
 	const id = req.params.id
 	const photo = await Photo.findByIdAndRemove(id)
-	if(photo) // Si la foto existe
-		await fs.unlink(path.resolve(photo.imagePath)) // Eliminala pasando la ruta absoluta
+	if(photo) // Si los datos de la foto existe
+		await fs.unlink(path.resolve(photo.imagePath)) // Elimina la foto pasando la ruta absoluta
 
 	return res.json({
 		message: 'Photo deleted',
